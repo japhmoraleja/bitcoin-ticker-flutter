@@ -10,24 +10,61 @@ class MainBody extends StatefulWidget {
 class _MainBodyState extends State<MainBody> {
   String selectedCurrency = 'PHP';
 
-  List<DropdownMenuItem> getDropdownItems() {
+// * Material drop down
+  DropdownButton<String> getDropdownButton() {
     List<DropdownMenuItem<String>> dropdownItems = [];
     for (String currency in currenciesList) {
-      // for (int i = 0; i < currenciesList.length; i++) {
-      // String currency = currenciesList[i];
       var newItem = DropdownMenuItem(
-        child: Text(currency),
+        child: Text(
+          currency,
+          textAlign: TextAlign.center,
+        ),
         value: currency,
       );
-
       dropdownItems.add(newItem);
     }
-    return dropdownItems;
+    return DropdownButton<String>(
+      value: selectedCurrency,
+      items: dropdownItems,
+      onChanged: (value) {
+        setState(
+          () {
+            selectedCurrency = value;
+          },
+        );
+        print(value);
+      },
+    );
   }
 
-  // List<Widget> getCupertinoDropdownItems() {
-
-  // }
+// * iOS Picker
+  CupertinoPicker iOSPicker() {
+    List<Widget> pickerItems = [];
+    for (String currency in currenciesList) {
+      Center(
+        child: RichText(
+          text: TextSpan(
+            children: <TextSpan>[
+              TextSpan(
+                text: currency,
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+      pickerItems.add(
+        Text(currency),
+      );
+    }
+    return CupertinoPicker(
+      itemExtent: 32.0,
+      onSelectedItemChanged: (selectedIndex) {},
+      children: pickerItems,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,32 +93,15 @@ class _MainBodyState extends State<MainBody> {
             ),
           ),
         ),
-        Container(
-          height: 150.0,
-          alignment: Alignment.center,
-          padding: EdgeInsets.only(bottom: 30.0),
-          color: Colors.lightBlue,
-          child: CupertinoPicker(
-            itemExtent: 32.0,
-            onSelectedItemChanged: (selectedIndex) {},
-            children: getDropdownItems(),
+        Center(
+          child: Container(
+            height: 150.0,
+            alignment: Alignment.center,
+            padding: EdgeInsets.only(bottom: 30.0),
+            color: Colors.lightBlue,
           ),
         ),
       ],
     );
   }
 }
-
-// DropdownButton<String>(
-//             value: selectedCurrency,
-//             items: getDropdownItems(),
-//             onChanged: (value) {
-//               setState(
-//                 () {
-//                   selectedCurrency = value;
-//                 },
-//               );
-//               print(value);
-//             },
-//           ),
-//         ),
