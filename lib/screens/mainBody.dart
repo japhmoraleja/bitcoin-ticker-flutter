@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:bitcoin_ticker/utils/coin_data.dart';
+import 'package:flutter/cupertino.dart';
 
 class MainBody extends StatefulWidget {
   @override
@@ -23,6 +24,10 @@ class _MainBodyState extends State<MainBody> {
     }
     return dropdownItems;
   }
+
+  // List<Widget> getCupertinoDropdownItems() {
+
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -56,20 +61,27 @@ class _MainBodyState extends State<MainBody> {
           alignment: Alignment.center,
           padding: EdgeInsets.only(bottom: 30.0),
           color: Colors.lightBlue,
-          child: DropdownButton<String>(
-            value: selectedCurrency,
-            items: getDropdownItems(),
-            onChanged: (value) {
-              setState(
-                () {
-                  selectedCurrency = value;
-                },
-              );
-              print(value);
-            },
+          child: CupertinoPicker(
+            itemExtent: 32.0,
+            onSelectedItemChanged: (selectedIndex) {},
+            children: getDropdownItems(),
           ),
         ),
       ],
     );
   }
 }
+
+// DropdownButton<String>(
+//             value: selectedCurrency,
+//             items: getDropdownItems(),
+//             onChanged: (value) {
+//               setState(
+//                 () {
+//                   selectedCurrency = value;
+//                 },
+//               );
+//               print(value);
+//             },
+//           ),
+//         ),
