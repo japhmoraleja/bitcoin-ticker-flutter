@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 
-class MainBody extends StatelessWidget {
-  const MainBody({
-    Key key,
-  }) : super(key: key);
+class MainBody extends StatefulWidget {
+  @override
+  _MainBodyState createState() => _MainBodyState();
+}
+
+class _MainBodyState extends State<MainBody> {
+  String selectedCurrency = 'PHP';
 
   @override
   Widget build(BuildContext context) {
@@ -38,8 +41,27 @@ class MainBody extends StatelessWidget {
           padding: EdgeInsets.only(bottom: 30.0),
           color: Colors.lightBlue,
           child: DropdownButton<String>(
-            items: null,
-            onChanged: null,
+            value: selectedCurrency,
+            items: [
+              DropdownMenuItem(
+                child: Text('PHP'),
+                value: 'PHP',
+              ),
+              DropdownMenuItem(
+                child: Text('CAD'),
+                value: 'CAD',
+              ),
+              DropdownMenuItem(
+                child: Text('NZD'),
+                value: 'NZD',
+              ),
+            ],
+            onChanged: (value) {
+              setState(() {
+                selectedCurrency = value;
+              });
+              print(value);
+            },
           ),
         ),
       ],
