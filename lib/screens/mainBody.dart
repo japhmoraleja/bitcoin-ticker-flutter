@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:bitcoin_ticker/utils/coin_data.dart';
 
 class MainBody extends StatefulWidget {
   @override
@@ -7,6 +8,21 @@ class MainBody extends StatefulWidget {
 
 class _MainBodyState extends State<MainBody> {
   String selectedCurrency = 'PHP';
+
+  List<DropdownMenuItem> getDropdownItems() {
+    List<DropdownMenuItem<String>> dropdownItems = [];
+    for (String currency in currenciesList) {
+      // for (int i = 0; i < currenciesList.length; i++) {
+      // String currency = currenciesList[i];
+      var newItem = DropdownMenuItem(
+        child: Text(currency),
+        value: currency,
+      );
+
+      dropdownItems.add(newItem);
+    }
+    return dropdownItems;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,24 +58,13 @@ class _MainBodyState extends State<MainBody> {
           color: Colors.lightBlue,
           child: DropdownButton<String>(
             value: selectedCurrency,
-            items: [
-              DropdownMenuItem(
-                child: Text('PHP'),
-                value: 'PHP',
-              ),
-              DropdownMenuItem(
-                child: Text('CAD'),
-                value: 'CAD',
-              ),
-              DropdownMenuItem(
-                child: Text('NZD'),
-                value: 'NZD',
-              ),
-            ],
+            items: getDropdownItems(),
             onChanged: (value) {
-              setState(() {
-                selectedCurrency = value;
-              });
+              setState(
+                () {
+                  selectedCurrency = value;
+                },
+              );
               print(value);
             },
           ),
