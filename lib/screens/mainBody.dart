@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:bitcoin_ticker/utils/coin_data.dart';
 import 'package:flutter/cupertino.dart';
+import 'dart:io' show Platform;
 
 class MainBody extends StatefulWidget {
   @override
@@ -11,7 +12,7 @@ class _MainBodyState extends State<MainBody> {
   String selectedCurrency = 'PHP';
 
 // * Material drop down
-  DropdownButton<String> getDropdownButton() {
+  DropdownButton<String> androidDropdown() {
     List<DropdownMenuItem<String>> dropdownItems = [];
     for (String currency in currenciesList) {
       var newItem = DropdownMenuItem(
@@ -99,6 +100,7 @@ class _MainBodyState extends State<MainBody> {
             alignment: Alignment.center,
             padding: EdgeInsets.only(bottom: 30.0),
             color: Colors.lightBlue,
+            child: Platform.isIOS ? iOSPicker() : androidDropdown(),
           ),
         ),
       ],
